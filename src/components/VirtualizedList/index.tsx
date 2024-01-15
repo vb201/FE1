@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { VirtualizedListProps } from '../../types';
 
 const VirtualizedList = ({
@@ -13,7 +13,11 @@ const VirtualizedList = ({
     startIndex + Math.ceil(containerHeight / itemHeight),
     items.length
   );
-  const visibleItems = items.slice(startIndex, endIndex);
+  const visibleItems = useMemo(
+    () => items.slice(startIndex, endIndex),
+    [items, startIndex, endIndex]
+  );
+  
   const invisibleItemsHeight =
     (startIndex + visibleItems.length - endIndex) * itemHeight;
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
@@ -25,7 +29,7 @@ const VirtualizedList = ({
       style={{ height: `${containerHeight}px`, overflowY: 'scroll' }}
       onScroll={handleScroll}
     >
-      <div style={{ height: `${items.length * itemHeight}px` }}>
+      <div style={{ height: `${items.length * itemHeight}px` }}> 
         <div
           style={{
             position: 'relative',
