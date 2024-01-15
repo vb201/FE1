@@ -17,7 +17,7 @@ const VirtualizedList = ({
     () => items.slice(startIndex, endIndex),
     [items, startIndex, endIndex]
   );
-  
+
   const invisibleItemsHeight =
     (startIndex + visibleItems.length - endIndex) * itemHeight;
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
@@ -29,7 +29,7 @@ const VirtualizedList = ({
       style={{ height: `${containerHeight}px`, overflowY: 'scroll' }}
       onScroll={handleScroll}
     >
-      <div style={{ height: `${items.length * itemHeight}px` }}> 
+      <div style={{ height: `${items.length * itemHeight}px` }}>
         <div
           style={{
             position: 'relative',

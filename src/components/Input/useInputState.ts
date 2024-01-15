@@ -19,7 +19,7 @@ const useInputState = () => {
 
   const filteredData = data.filter(
     (item) =>
-      item.email.includes(value) &&
+      item.email.includes(value.toLowerCase()) &&
       !selectedPerson.find((person) => person.userId === item.userId)
   );
 

@@ -23,7 +23,7 @@ const Input = () => {
           <div
             key={index}
             className={
-              'flex flex-wrap gap-6 items-center justify-center px-2 py-1 rounded-full border border-gray-300 bg-gray-200 m-2' +
+              'flex gap-6 items-center justify-center px-2 py-1 rounded-full border border-gray-300 bg-gray-200 m-2' +
               (index === highlightedIndex ? 'border border-red-500' : '')
             }
           >
@@ -48,7 +48,7 @@ const Input = () => {
             ref={inputRef}
             className="w-full h-full px-2 py-1 rounded-full border-none outline-none min-h-16"
             value={value}
-            onChange={(event) => setValue(event.target.value)}
+            onChange={(event) => setValue(event.target.value.trim())}
             onFocus={() => setShowSuggestions(true)}
             onBlur={() => setShowSuggestions(false)}
             onKeyDown={handleKeyDown}
