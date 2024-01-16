@@ -1,13 +1,32 @@
 import { useState, useRef } from 'react';
 import { Item } from '../../types';
+import { uniqueNamesGenerator, Config, names } from 'unique-names-generator';
 
-const generateData = () =>
-  Array.from({ length: 500 }, (_, i) => ({
-    userId: `user${i + 1}`,
-    name: `User ${i + 1}`,
-    email: `user${i + 1}@gmail.com`,
-    thumbnail: `https://robohash.org/user${i + 1}?set=set3`,
-  }));
+const config: Config = {
+  dictionaries: [names],
+};
+
+const generateData = () => {
+const names = new Set<string>();
+
+  while (names.size < 500) {
+    names.add(
+      `${uniqueNamesGenerator(config)} ${uniqueNamesGenerator(config)}`
+    );
+  }
+
+  return Array.from(names, (name: string, index: number) => {
+    const [firstName, lastName] = name.split(' ');
+
+    return {
+      userId: `user${index + 1}`,
+      name: name,
+      email: `${lastName}.${firstName}@gmail.com`.toLowerCase(),
+      thumbnail: `https://robohash.org/user${index + 1}?set=set3`,
+    };
+  });
+};
+
 
 const useInputState = () => {
   const [value, setValue] = useState('');
@@ -19,10 +38,11 @@ const useInputState = () => {
 
   const filteredData = data.filter(
     (item) =>
-      item.email.includes(value.toLowerCase()) &&
+      (item.email.includes(value.toLowerCase()) ||
+        item.name.toLowerCase().includes(value.toLowerCase())) &&
       !selectedPerson.find((person) => person.userId === item.userId)
   );
-
+  
   const appendPerson = (person: Item) => {
     setSelectedPerson([...selectedPerson, person]);
     setShowSuggestions(false);

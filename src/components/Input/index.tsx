@@ -48,7 +48,7 @@ const Input = () => {
             ref={inputRef}
             className="w-full h-full px-2 py-1 rounded-full border-none outline-none min-h-16"
             value={value}
-            onChange={(event) => setValue(event.target.value.trim())}
+            onChange={(event) => setValue(event.target.value)}
             onFocus={() => setShowSuggestions(true)}
             onBlur={() => setShowSuggestions(false)}
             onKeyDown={handleKeyDown}
